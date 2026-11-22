@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FoodExpress - Online Food Ordering</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      corePlugins: {
+        preflight: false // prevents conflict with Bootstrap styles
+      }
+    }
+  </script>
+
+  <!-- Bootstrap 5 CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100">
+
+  <!-- Navigation Bar (Bootstrap) -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-warning" href="#">FoodExpress</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#categories">Categories</a></li>
+          <li class="nav-item"><a class="nav-link" href="#menu">Featured</a></li>
+          <li class="nav-item"><a class="nav-link" href="#offers">Offers</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+        <button class="btn btn-warning ms-lg-3" onclick="showCart()">
+          Cart (<span id="cart-count">0</span>)
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero / Promotional Banner (Tailwind + Bootstrap) -->
+  <section id="home" class="bg-orange-500 text-white py-16 px-4 text-center">
+    <div class="container">
+      <h1 class="text-4xl md:text-5xl font-bold mb-3">Fresh Food Delivered Fast</h1>
+      <p class="text-lg md:text-xl mb-6">Order from your favorite restaurants with FoodExpress Pvt. Ltd.</p>
+      <a href="#menu" class="btn btn-dark btn-lg px-4">Order Now</a>
+    </div>
+  </section>
+
+  <!-- Food Categories (Tailwind Grid) -->
+  <section id="categories" class="container py-12">
+    <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Food Categories</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+      <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+        <h3 class="text-xl font-semibold text-orange-600">Pizza</h3>
+        <p class="text-sm text-gray-500 mt-1">Cheesy & Hot</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+        <h3 class="text-xl font-semibold text-orange-600">Burgers</h3>
+        <p class="text-sm text-gray-500 mt-1">Crispy & Fresh</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+        <h3 class="text-xl font-semibold text-orange-600">Indian</h3>
+        <p class="text-sm text-gray-500 mt-1">Spicy Curries & Thali</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+        <h3 class="text-xl font-semibold text-orange-600">Desserts</h3>
+        <p class="text-sm text-gray-500 mt-1">Cakes & Ice Cream</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Items (Bootstrap Grid & Cards) -->
+  <section id="menu" class="container py-10">
+    <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Featured Items</h2>
+    <div class="row g-4">
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm food-card">
+          <img src="https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600" class="card-img-top" alt="Margherita Pizza">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Margherita Pizza</h5>
+            <p class="card-text text-muted">Classic cheese pizza with fresh tomato sauce and basil.</p>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <span class="fw-bold text-success fs-5">₹249</span>
+              <button class="btn btn-warning btn-sm" onclick="addToCart('Margherita Pizza')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm food-card">
+          <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600" class="card-img-top" alt="Veg Cheese Burger">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Veg Cheese Burger</h5>
+            <p class="card-text text-muted">Crispy patty with melted cheese, lettuce, and mayo.</p>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <span class="fw-bold text-success fs-5">₹149</span>
+              <button class="btn btn-warning btn-sm" onclick="addToCart('Veg Cheese Burger')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm food-card">
+          <img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=600" class="card-img-top" alt="Paneer Butter Masala">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Paneer Butter Masala</h5>
+            <p class="card-text text-muted">Soft paneer cubes cooked in rich creamy tomato gravy.</p>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <span class="fw-bold text-success fs-5">₹220</span>
+              <button class="btn btn-warning btn-sm" onclick="addToCart('Paneer Butter Masala')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm food-card">
+          <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600" class="card-img-top" alt="White Sauce Pasta">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">White Sauce Pasta</h5>
+            <p class="card-text text-muted">Penne pasta tossed in creamy garlic white sauce and veggies.</p>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <span class="fw-bold text-success fs-5">₹199</span>
+              <button class="btn btn-warning btn-sm" onclick="addToCart('White Sauce Pasta')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm food-card">
+          <img src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=600" class="card-img-top" alt="Masala Dosa">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Masala Dosa</h5>
+            <p class="card-text text-muted">Crispy South Indian dosa served with sambar and chutney.</p>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <span class="fw-bold text-success fs-5">₹120</span>
+              <button class="btn btn-warning btn-sm" onclick="addToCart('Masala Dosa')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm food-card">
+          <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600" class="card-img-top" alt="Chocolate Brownie">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Chocolate Brownie</h5>
+            <p class="card-text text-muted">Warm walnut brownie topped with rich chocolate syrup.</p>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <span class="fw-bold text-success fs-5">₹110</span>
+              <button class="btn btn-warning btn-sm" onclick="addToCart('Chocolate Brownie')">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Promotional Banner (Tailwind) -->
+  <section id="offers" class="container my-10">
+    <div class="bg-gray-900 text-white rounded-xl p-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        <h3 class="text-2xl font-bold text-yellow-400">Weekend Special Offer!</h3>
+        <p class="text-gray-300 mt-1">Get Flat 25% OFF on orders above ₹499. Use code: <b>FOOD25</b></p>
+      </div>
+      <a href="#menu" class="btn btn-warning fw-bold">Grab Offer</a>
+    </div>
+  </section>
+
+  <!-- Contact Section (Bootstrap Form + Grid) -->
+  <section id="contact" class="bg-white py-12 mt-8">
+    <div class="container">
+      <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">Contact Us</h2>
+      <div class="row g-4">
+        <div class="col-12 col-md-5">
+          <h4 class="fw-bold mb-3">FoodExpress Pvt. Ltd.</h4>
+          <p class="text-muted">Have a question about your order or want to partner with us? Reach out anytime.</p>
+          <p><strong>Address:</strong> 204, Tech Park, SG Highway, Ahmedabad, Gujarat</p>
+          <p><strong>Phone:</strong> +91 98765 43210</p>
+          <p><strong>Email:</strong> support@foodexpress.in</p>
+        </div>
+
+        <div class="col-12 col-md-7">
+          <form id="contactForm" class="p-4 border rounded bg-light">
+            <div class="mb-3">
+              <label for="name" class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email Address</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Message</label>
+              <textarea class="form-control" id="message" rows="3" placeholder="Write your message..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-dark">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-4">
+    <p class="mb-0">&copy; 2026 FoodExpress Pvt. Ltd. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Bootstrap 5 JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="script.js"></script>
+</body>
+</html>

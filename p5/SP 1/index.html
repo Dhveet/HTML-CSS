@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Student Admission Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Student Admission Form</h1>
+        <form id="admissionForm" novalidate>
+            <h3>Personal Information</h3>
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" placeholder="e.g., Dhveet Patel" required>
+            <small class="error" id="nameError"></small>
+
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" placeholder="student@example.com" required>
+            <small class="error" id="emailError"></small>
+
+            <label for="mobile">Mobile Number (10 digits):</label>
+            <input type="text" id="mobile" maxlength="10" placeholder="9876543210" required>
+            <small class="error" id="mobileError"></small>
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" required>
+            <small class="error" id="dobError"></small>
+
+            <h3>Academic Information</h3>
+            <label for="percentage">Class 12 Percentage (%):</label>
+            <input type="number" id="percentage" step="0.01" placeholder="e.g., 85.5" required>
+            <small class="error" id="percentError"></small>
+
+            <label for="course">Preferred Program:</label>
+            <select id="course" required>
+                <option value="">-- Select Program --</option>
+                <option value="B.Tech CE">B.Tech Computer Engineering</option>
+                <option value="B.Tech IT">B.Tech Information Technology</option>
+                <option value="B.Tech AI">B.Tech AI &amp; Machine Learning</option>
+            </select>
+            <small class="error" id="courseError"></small>
+
+            <button type="submit">Submit Application</button>
+            <div id="successMsg" class="success"></div>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Registration Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Registration Portal</h1>
+        <form id="empForm" novalidate>
+            <label for="empId">Employee ID (Format: EMP-1001):</label>
+            <input type="text" id="empId" placeholder="EMP-1001" required>
+            <small class="error" id="empIdError"></small>
+
+            <label for="empEmail">Corporate Email:</label>
+            <input type="email" id="empEmail" placeholder="name@company.com" required>
+            <small class="error" id="empEmailError"></small>
+
+            <label for="empMobile">Mobile Number:</label>
+            <input type="text" id="empMobile" maxlength="10" placeholder="9876543210" required>
+            <small class="error" id="empMobileError"></small>
+
+            <label for="salary">Monthly Salary (₹):</label>
+            <input type="number" id="salary" placeholder="e.g., 45000" required>
+            <small class="error" id="salaryError"></small>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Min 8 chars, 1 upper, 1 number, 1 symbol" required>
+            <small class="error" id="passError"></small>
+
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" placeholder="Re-enter password" required>
+            <small class="error" id="confirmPassError"></small>
+
+            <button type="submit">Register Employee</button>
+            <div id="successMsg" class="success"></div>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

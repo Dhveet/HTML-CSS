@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Event Registration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>TechSummit 2026 Registration</h1>
+        <form id="eventForm" novalidate>
+            <h3>Participant Details</h3>
+            <label for="pName">Full Name:</label>
+            <input type="text" id="pName" placeholder="Enter your full name" required>
+            <small class="error" id="pNameError"></small>
+
+            <label for="pEmail">Email Address:</label>
+            <input type="email" id="pEmail" placeholder="you@example.com" required>
+            <small class="error" id="pEmailError"></small>
+
+            <label for="ticketType">Ticket Type:</label>
+            <select id="ticketType" required>
+                <option value="">-- Choose Ticket --</option>
+                <option value="Student Pass (₹499)">Student Pass — ₹499</option>
+                <option value="Standard Pass (₹999)">Standard Pass — ₹999</option>
+                <option value="VIP Pass (₹1999)">VIP Pass — ₹1,999</option>
+            </select>
+            <small class="error" id="ticketError"></small>
+
+            <h3>Payment Information</h3>
+            <label for="cardNum">Card Number (16 digits):</label>
+            <input type="text" id="cardNum" maxlength="16" placeholder="1234567812345678" required>
+            <small class="error" id="cardError"></small>
+
+            <div class="row">
+                <div>
+                    <label for="expiry">Expiry (MM/YY):</label>
+                    <input type="text" id="expiry" maxlength="5" placeholder="08/28" required>
+                    <small class="error" id="expiryError"></small>
+                </div>
+                <div>
+                    <label for="cvv">CVV (3 digits):</label>
+                    <input type="password" id="cvv" maxlength="3" placeholder="123" required>
+                    <small class="error" id="cvvError"></small>
+                </div>
+            </div>
+
+            <button type="submit">Pay &amp; Register</button>
+            <div id="confirmationBox" class="confirmation"></div>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

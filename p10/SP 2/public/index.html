@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Registration Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Secure User Registration</h1>
+        <form id="regForm">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" placeholder="you@example.com" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Min 8 chars, A-Z, a-z, 0-9, @$!%*?&" required>
+
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" placeholder="Re-enter password" required>
+
+            <button type="submit">Register Securely</button>
+        </form>
+
+        <div id="feedback" class="feedback"></div>
+    </div>
+
+    <script>
+        document.getElementById("regForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const feedback = document.getElementById("feedback");
+            feedback.className = "feedback";
+            feedback.textContent = "Processing...";
+
+            const payload = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                password: document.getElementById("password").value,
+                confirmPassword: document.getElementById("confirmPassword").value
+            };
+
+            try {
+                const res = await fetch("/api/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    feedback.classList.add("success");
+                    feedback.innerHTML = `<strong>${data.message}</strong><br><small>Stored bcrypt Hash: ${data.demoHash}</small>`;
+                    e.target.reset();
+                } else {
+                    feedback.classList.add("error");
+                    feedback.textContent = data.error;
+                }
+            } catch (err) {
+                feedback.classList.add("error");
+                feedback.textContent = "Network error. Please try again.";
+            }
+        });
+    </script>
+</body>
+</html>

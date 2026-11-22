@@ -1,0 +1,150 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0f172a;
+    color: #e2e8f0;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #1e293b;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: #e2e8f0;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #38bdf8;
+}
+
+.hero {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #1e293b;
+    border-bottom: 1px solid #334155;
+}
+
+.hero h1 {
+    font-size: 2.4rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 24px;
+    background-color: #38bdf8;
+    color: #0f172a;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+main {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+h2 {
+    color: #38bdf8;
+    margin-bottom: 15px;
+}
+
+/* Flexbox Skills */
+.skills-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.skill-badge {
+    background-color: #1e293b;
+    border: 1px solid #38bdf8;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.95rem;
+}
+
+/* CSS Grid Projects */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.project-card {
+    background-color: #1e293b;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+}
+
+.project-card h3 {
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+#contact a {
+    color: #38bdf8;
+    text-decoration: none;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #1e293b;
+    border-top: 1px solid #334155;
+    font-size: 0.9rem;
+}
+
+/* Tablet Media Query */
+@media (max-width: 900px) {
+    .project-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile Media Query */
+@media (max-width: 600px) {
+    header {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+}

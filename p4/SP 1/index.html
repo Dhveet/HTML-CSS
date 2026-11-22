@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Student Attendance Dashboard</h1>
+
+        <div class="summary">
+            <div class="stat">Total: <span id="totalCount">0</span></div>
+            <div class="stat present-stat">Present: <span id="presentCount">0</span></div>
+            <div class="stat absent-stat">Absent: <span id="absentCount">0</span></div>
+        </div>
+
+        <div class="add-student">
+            <input type="text" id="studentNameInput" placeholder="Enter new student name">
+            <button id="addStudentBtn">Add Student</button>
+        </div>
+
+        <ul id="studentList"></ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

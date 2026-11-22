@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Ticket Booking</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>CineMax Ticket Booking</h1>
+        <p class="movie-title">Now Showing: <strong>Interstellar (IMAX)</strong> — ₹250 / Seat</p>
+
+        <div class="legend">
+            <span><i class="box available"></i> Available</span>
+            <span><i class="box selected"></i> Selected</span>
+            <span><i class="box booked"></i> Booked</span>
+        </div>
+
+        <div class="screen">SCREEN THIS WAY</div>
+
+        <div id="seatGrid" class="seat-grid"></div>
+
+        <div class="summary">
+            <p>Selected Seats: <strong id="selectedSeats">None</strong></p>
+            <p>Total Price: <strong>₹<span id="totalPrice">0</span></strong></p>
+            <button id="confirmBtn">Confirm Booking</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

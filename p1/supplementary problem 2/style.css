@@ -1,0 +1,187 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+    color: #2d3748;
+    background-color: #f7fafc;
+}
+
+header {
+    background-color: #0f766e;
+    color: #ffffff;
+    text-align: center;
+    padding-top: 22px;
+}
+
+header h1 {
+    margin-bottom: 5px;
+}
+
+nav {
+    background-color: #115e59;
+    margin-top: 15px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+nav ul li a {
+    display: block;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 20px;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    background-color: #0f766e;
+}
+
+main {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+section, aside {
+    background: #ffffff;
+    padding: 22px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
+
+h2 {
+    color: #0f766e;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #ccfbf1;
+    padding-bottom: 6px;
+}
+
+h3 {
+    color: #115e59;
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+
+figure {
+    margin-top: 15px;
+    text-align: center;
+}
+
+figure img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+figcaption {
+    font-size: 0.9rem;
+    color: #4a5568;
+    margin-top: 6px;
+}
+
+.project-grid {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.card {
+    flex: 1 1 270px;
+    background-color: #f0fdfa;
+    padding: 15px;
+    border: 1px solid #99f6e4;
+    border-radius: 5px;
+}
+
+aside {
+    background-color: #ecfdf5;
+    border-left: 4px solid #0f766e;
+}
+
+aside ul, .roles-list {
+    margin-left: 20px;
+    margin-top: 8px;
+}
+
+.roles-list li {
+    margin-bottom: 8px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 500px;
+    margin-top: 10px;
+}
+
+input, select, textarea {
+    padding: 8px;
+    border: 1px solid #cbd5e0;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+button {
+    width: fit-content;
+    padding: 10px 20px;
+    background-color: #0f766e;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #115e59;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+}
+
+th, td {
+    border: 1px solid #cbd5e0;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #0f766e;
+    color: #ffffff;
+}
+
+.bank-details {
+    margin-top: 18px;
+    padding: 15px;
+    background-color: #f8fafc;
+    border: 1px dashed #0f766e;
+    border-radius: 5px;
+}
+
+address {
+    font-style: normal;
+}
+
+footer {
+    text-align: center;
+    padding: 16px;
+    background-color: #0f766e;
+    color: #ffffff;
+    margin-top: 20px;
+}

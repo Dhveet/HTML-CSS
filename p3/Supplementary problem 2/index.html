@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity Bill Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Electricity Bill Calculator</h1>
+        <p class="tariff-info">
+            <strong>Tariff Slabs:</strong> 0–100 units: ₹3/unit | 101–200: ₹5/unit | 201–300: ₹7/unit | Above 300: ₹10/unit (+ ₹50 Fixed Charge)
+        </p>
+
+        <form id="billForm">
+            <label for="consumerName">Consumer Name:</label>
+            <input type="text" id="consumerName" placeholder="Enter consumer name" required>
+
+            <label for="units">Units Consumed (kWh):</label>
+            <input type="number" id="units" min="0" placeholder="e.g., 250" required>
+
+            <button type="button" onclick="generateBill()">Calculate Bill</button>
+        </form>
+
+        <div id="output" class="output-box"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

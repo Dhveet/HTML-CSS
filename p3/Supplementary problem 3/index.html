@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Bill Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Shopping Bill Generator</h1>
+
+        <form id="shopForm">
+            <label for="itemName">Item Name:</label>
+            <input type="text" id="itemName" placeholder="e.g., Wireless Mouse" required>
+
+            <label for="price">Price per Unit (₹):</label>
+            <input type="number" id="price" min="1" placeholder="e.g., 800" required>
+
+            <label for="qty">Quantity:</label>
+            <input type="number" id="qty" min="1" value="1" required>
+
+            <label for="category">Customer Type (Discount):</label>
+            <select id="category">
+                <option value="regular">Regular (5% Off)</option>
+                <option value="member">Premium Member (15% Off)</option>
+                <option value="student">Student (10% Off)</option>
+            </select>
+
+            <button type="button" onclick="generateShoppingBill()">Generate Bill</button>
+        </form>
+
+        <div id="output" class="output-box"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

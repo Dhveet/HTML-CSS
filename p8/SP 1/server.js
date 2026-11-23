@@ -9,7 +9,7 @@ app.use(express.static("public"));
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "4118@Dhveet", // <-- put your MySQL Workbench password here
+    password: "4118@Dhveet", 
     database: "college_db"
 });
 

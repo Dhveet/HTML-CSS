@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Book Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Library Book Management System</h1>
+
+        <form id="bookForm">
+            <input type="hidden" id="bookId">
+            <input type="text" id="title" placeholder="Book Title" required>
+            <input type="text" id="author" placeholder="Author Name" required>
+            <input type="text" id="isbn" placeholder="ISBN (e.g., 978-0132350884)" required>
+            <input type="number" id="copies" placeholder="Copies" min="0" required>
+            <button type="submit" id="submitBtn">Add Book</button>
+        </form>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search by title, author, or ISBN...">
+            <button type="button" onclick="loadBooks()">Search</button>
+            <button type="button" class="secondary" onclick="clearSearch()">Clear</button>
+        </div>
+
+        <p id="msg"></p>
+
+        <table>
+            <thead>
+                <tr><th>ID</th><th>Title</th><th>Author</th><th>ISBN</th><th>Copies</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+
+    <script>
+        const form = document.getElementById("bookForm");
+        const msg = document.getElementById("msg");
+        const searchInput = document.getElementById("searchInput");
+        let allBooks = [];
+
+        function escapeHtml(str) {
+            return String(str).replace(/[&<>"']/g, m => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+            }[m]));
+        }
+
+        async function loadBooks() {
+            const q = encodeURIComponent(searchInput.value.trim());
+            const res = await fetch(q ? `/api/books?q=${q}` : "/api/books");
+            allBooks = await res.json();
+            document.getElementById("tableBody").innerHTML = allBooks.map(b => `
+                <tr>
+                    <td>${b.id}</td>
+                    <td>${escapeHtml(b.title)}</td>
+                    <td>${escapeHtml(b.author)}</td>
+                    <td>${escapeHtml(b.isbn)}</td>
+                    <td>${b.copies}</td>
+                    <td>
+                        <button class="edit" onclick="editBook(${b.id})">Edit</button>
+                        <button class="del" onclick="deleteBook(${b.id})">Delete</button>
+                    </td>
+                </tr>
+            `).join("");
+        }
+
+        function clearSearch() {
+            searchInput.value = "";
+            loadBooks();
+        }
+
+        searchInput.addEventListener("keyup", (e) => {
+            if (e.key === "Enter") loadBooks();
+        });
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const id = document.getElementById("bookId").value;
+            const payload = {
+                title: document.getElementById("title").value,
+                author: document.getElementById("author").value,
+                isbn: document.getElementById("isbn").value,
+                copies: document.getElementById("copies").value
+            };
+
+            const res = await fetch(id ? `/api/books/${id}` : "/api/books", {
+                method: id ? "PUT" : "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+            const result = await res.json();
+            msg.textContent = result.message || result.error;
+            if (res.ok) {
+                form.reset();
+                document.getElementById("bookId").value = "";
+                document.getElementById("submitBtn").textContent = "Add Book";
+                loadBooks();
+            }
+        });
+
+        function editBook(id) {
+            const b = allBooks.find(item => item.id === id);
+            if (!b) return;
+            document.getElementById("bookId").value = b.id;
+            document.getElementById("title").value = b.title;
+            document.getElementById("author").value = b.author;
+            document.getElementById("isbn").value = b.isbn;
+            document.getElementById("copies").value = b.copies;
+            document.getElementById("submitBtn").textContent = "Update Book";
+        }
+
+        async function deleteBook(id) {
+            if (!confirm("Are you sure you want to remove this book?")) return;
+            const res = await fetch(`/api/books/${id}`, { method: "DELETE" });
+            const result = await res.json();
+            msg.textContent = result.message || result.error;
+            loadBooks();
+        }
+
+        loadBooks();
+    </script>
+</body>
+</html>

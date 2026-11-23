@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Management System</h1>
+        <form id="empForm">
+            <input type="hidden" id="empId">
+            <input type="text" id="name" placeholder="Employee Name" required>
+            <input type="email" id="email" placeholder="Work Email" required>
+            <input type="text" id="department" placeholder="Department (e.g., IT, HR)" required>
+            <input type="number" id="salary" placeholder="Salary (₹)" min="1" step="0.01" required>
+            <button type="submit" id="submitBtn">Add Employee</button>
+        </form>
+        <p id="msg"></p>
+        <table>
+            <thead>
+                <tr><th>ID</th><th>Name</th><th>Email</th><th>Department</th><th>Salary (₹)</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+
+    <script>
+        const form = document.getElementById("empForm");
+        const msg = document.getElementById("msg");
+
+        async function loadEmployees() {
+            const res = await fetch("/api/employees");
+            const data = await res.json();
+            document.getElementById("tableBody").innerHTML = data.map(e => `
+                <tr>
+                    <td>${e.id}</td><td>${e.name}</td><td>${e.email}</td><td>${e.department}</td><td>${e.salary}</td>
+                    <td>
+                        <button class="edit" onclick="editEmp(${e.id}, '${e.name}', '${e.email}', '${e.department}', ${e.salary})">Edit</button>
+                        <button class="del" onclick="deleteEmp(${e.id})">Delete</button>
+                    </td>
+                </tr>
+            `).join("");
+        }
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const id = document.getElementById("empId").value;
+            const payload = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                department: document.getElementById("department").value,
+                salary: document.getElementById("salary").value
+            };
+
+            const res = await fetch(id ? `/api/employees/${id}` : "/api/employees", {
+                method: id ? "PUT" : "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+            const result = await res.json();
+            msg.textContent = result.message || result.error;
+            if (res.ok) {
+                form.reset();
+                document.getElementById("empId").value = "";
+                document.getElementById("submitBtn").textContent = "Add Employee";
+                loadEmployees();
+            }
+        });
+
+        function editEmp(id, name, email, department, salary) {
+            document.getElementById("empId").value = id;
+            document.getElementById("name").value = name;
+            document.getElementById("email").value = email;
+            document.getElementById("department").value = department;
+            document.getElementById("salary").value = salary;
+            document.getElementById("submitBtn").textContent = "Update Employee";
+        }
+
+        async function deleteEmp(id) {
+            if (!confirm("Are you sure you want to delete this employee?")) return;
+            const res = await fetch(`/api/employees/${id}`, { method: "DELETE" });
+            const result = await res.json();
+            msg.textContent = result.message || result.error;
+            loadEmployees();
+        }
+
+        loadEmployees();
+    </script>
+</body>
+</html>

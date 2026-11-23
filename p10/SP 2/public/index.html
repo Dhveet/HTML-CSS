@@ -3,64 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Registration Form</title>
+    <title>Secure User Registration</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Secure User Registration</h1>
-        <form id="regForm">
-            <label for="name">Full Name:</label>
-            <input type="text" id="name" placeholder="Enter your name" required>
+    <div class="card">
+        <h1>Create Secure Account</h1>
+        <p class="subtitle">Validated inputs, salted password hashing &amp; safe error handling</p>
 
-            <label for="email">Email Address:</label>
-            <input type="email" id="email" placeholder="you@example.com" required>
+        <form id="regForm" novalidate>
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="e.g., dhveet_01" required>
 
-            <label for="password">Password:</label>
-            <input type="password" id="password" placeholder="Min 8 chars, A-Z, a-z, 0-9, @$!%*?&" required>
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="e.g., dhveet@example.com" required>
 
-            <label for="confirmPassword">Confirm Password:</label>
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Create a strong password" required>
+
+            <ul class="rules" id="rulesList">
+                <li id="r-len">At least 8 characters</li>
+                <li id="r-upper">One uppercase letter (A-Z)</li>
+                <li id="r-lower">One lowercase letter (a-z)</li>
+                <li id="r-num">One number (0-9)</li>
+                <li id="r-spec">One special character (@$!%*?&#)</li>
+            </ul>
+
+            <label for="confirmPassword">Confirm Password</label>
             <input type="password" id="confirmPassword" placeholder="Re-enter password" required>
 
-            <button type="submit">Register Securely</button>
+            <button type="submit">Register</button>
         </form>
 
-        <div id="feedback" class="feedback"></div>
+        <div id="statusBox" class="status" style="display:none;"></div>
     </div>
 
     <script>
+        const passwordInput = document.getElementById("password");
+        const statusBox = document.getElementById("statusBox");
+
+        passwordInput.addEventListener("input", () => {
+            const val = passwordInput.value;
+            document.getElementById("r-len").className = val.length >= 8 ? "valid" : "";
+            document.getElementById("r-upper").className = /[A-Z]/.test(val) ? "valid" : "";
+            document.getElementById("r-lower").className = /[a-z]/.test(val) ? "valid" : "";
+            document.getElementById("r-num").className = /\d/.test(val) ? "valid" : "";
+            document.getElementById("r-spec").className = /[@$!%*?&#^()_\-+=]/.test(val) ? "valid" : "";
+        });
+
+        function showStatus(message, isError) {
+            statusBox.style.display = "block";
+            statusBox.textContent = message;
+            statusBox.className = isError ? "status error" : "status success";
+        }
+
         document.getElementById("regForm").addEventListener("submit", async (e) => {
             e.preventDefault();
-            const feedback = document.getElementById("feedback");
-            feedback.className = "feedback";
-            feedback.textContent = "Processing...";
+            const username = document.getElementById("username").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = passwordInput.value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
 
-            const payload = {
-                name: document.getElementById("name").value,
-                email: document.getElementById("email").value,
-                password: document.getElementById("password").value,
-                confirmPassword: document.getElementById("confirmPassword").value
-            };
+            if (password !== confirmPassword) {
+                showStatus("Passwords do not match.", true);
+                return;
+            }
 
             try {
                 const res = await fetch("/api/register", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify({ username, email, password, confirmPassword })
                 });
                 const data = await res.json();
-
+                showStatus(data.message || data.error, !res.ok);
                 if (res.ok) {
-                    feedback.classList.add("success");
-                    feedback.innerHTML = `<strong>${data.message}</strong><br><small>Stored bcrypt Hash: ${data.demoHash}</small>`;
                     e.target.reset();
-                } else {
-                    feedback.classList.add("error");
-                    feedback.textContent = data.error;
+                    document.querySelectorAll("#rulesList li").forEach(li => li.className = "");
                 }
             } catch (err) {
-                feedback.classList.add("error");
-                feedback.textContent = "Network error. Please try again.";
+                showStatus("Network error: Unable to reach registration server.", true);
             }
         });
     </script>
